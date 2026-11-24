@@ -1,0 +1,46 @@
+name: activity
+
+on:
+  schedule:
+    # Daily at 09:17 UTC. GitHub may start scheduled runs late.
+    - cron: "17 9 * * *"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Ignore the weekday and interval checks"
+        type: boolean
+        default: false
+
+# No permissions by default; the job below requests only what it needs.
+permissions: {}
+
+concurrency:
+  group: larper-github
+  cancel-in-progress: false
+
+jobs:
+  activity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install
+        run: python -m pip install --quiet .
+
+      - name: Validate configuration
+        run: larper-github --check-config
+
+      - name: Generate activity
+        env:
+          FORCE: ${{ inputs.force && '--force' || '' }}
+        run: larper-github $FORCE
+
+      - name: Push
+        run: git push

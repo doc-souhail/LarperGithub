@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "larper-github"
+version = "0.1.0"
+description = "Scheduled, clearly labelled activity commits in a dedicated GitHub repository."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+dependencies = ["PyYAML>=6.0"]
+
+[project.scripts]
+larper-github = "larper_github.main:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

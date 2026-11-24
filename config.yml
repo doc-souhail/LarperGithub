@@ -1,0 +1,28 @@
+# LARPergitHub configuration. Copy to config.yml and edit.
+# The scheduled time of day is set in .github/workflows/activity.yml (cron).
+
+project_name: LARPergitHub
+
+schedule:
+  # Run at most once every N days (1-30).
+  interval_days: 1
+  # Days on which entries may be written: mon, tue, wed, thu, fri, sat, sun.
+  active_weekdays: [mon, tue, wed, thu, fri]
+  # Upper limit of commits per run (1-10). The actual number each day is
+  # derived deterministically from the date.
+  max_commits_per_run: 3
+
+activity_log:
+  # Relative path inside the repository.
+  path: activity/log.txt
+  # Oldest lines are dropped beyond this size (10-100000).
+  max_lines: 500
+
+author:
+  # Default: the Actions bot. Commits by the bot are NOT linked to your
+  # GitHub profile. To experiment with your own graph, use your name and your
+  # GitHub noreply address (Settings > Emails), e.g.
+  #   name: Your Name
+  #   email: 12345678+yourname@users.noreply.github.com
+  name: doc-souhail
+  email: 143799936+doc-souhail@users.noreply.github.com
